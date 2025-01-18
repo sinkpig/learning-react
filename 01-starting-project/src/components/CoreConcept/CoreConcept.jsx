@@ -14,8 +14,8 @@ function CoreConceptEl({ image, title, description }) {
 export default function CoreConcept() {
   return (
     <>
-      {CORE_CONCEPTS.map(({ image, title, description }) => (
-        <CoreConceptEl image={image} title={title} description={description} />
+      {CORE_CONCEPTS.map((concept) => (
+        <CoreConceptEl key={concept.title} {...concept} />
       ))}
     </>
   )
