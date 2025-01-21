@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import Header from './components/Header/Header.jsx'
-import CoreConcept from './components/CoreConcept/CoreConcept.jsx'
+import CoreConcepts from './components/CoreConcepts/CoreConcepts.jsx'
 import TabButton from './components/TabButton/TabButton.jsx'
 import { EXAMPLES } from './data.js'
 
@@ -26,15 +26,10 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       <Header/>
       <main>
-        <section id="core-concepts">
-          <h2>Time to get started!</h2>
-          <ul>
-            <CoreConcept/>
-          </ul>
-        </section>
+        <CoreConcepts/>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
@@ -46,7 +41,7 @@ function App() {
           {tabContent}
         </section>
       </main>
-    </div>
+    </>
   );
 }
 export default App;
