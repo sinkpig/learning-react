@@ -1,9 +1,9 @@
 import './Tabs.css'
 
-export default function Tabs({ buttons, children }) {
+export default function Tabs({ buttons, children, Wrapper = 'menu' }) {
   return (
     <>
-      <menu>{buttons}</menu>
+      <Wrapper>{buttons}</Wrapper>
       {children}
     </>
   )
