@@ -3,9 +3,12 @@ import { useState } from 'react'
 import { EXAMPLES } from '../../data.js'
 import Section from '../Section.jsx'
 import TabButton from './TabButton.jsx'
+import Tabs from '../Tabs/Tabs.jsx'
+
+import './Examples.css'
 
 export default function Examples() {
-  const [ selectedTopic, setSelectedTopic ] = useState()
+  const [selectedTopic, setSelectedTopic] = useState()
   let tabContent = <p>Select a topic to learn more.</p>
 
   if (selectedTopic) {
@@ -26,33 +29,34 @@ export default function Examples() {
 
   return (
     <Section id="examples" title="Examples">
-      <menu>
-        <TabButton
-          isActive={selectedTopic === 'components'}
-          onClick={() => selectHandler('components')}
-        >
-          Components
-        </TabButton>
-        <TabButton
-          isActive={selectedTopic === 'jsx'}
-          onClick={() => selectHandler('jsx')}
-        >
-          JSX
-        </TabButton>
-        <TabButton
-          isActive={selectedTopic === 'props'}
-          onClick={() => selectHandler('props')}
-        >
-          Props
-        </TabButton>
-        <TabButton
-          isActive={selectedTopic === 'state'}
-          onClick={() => selectHandler('state')}
-        >
-          State
-        </TabButton>
-      </menu>
-      {tabContent}
+      <Tabs buttons={
+        <>
+          <TabButton
+            isActive={selectedTopic === 'components'}
+            onClick={() => selectHandler('components')}
+          >
+            Components
+          </TabButton>
+          <TabButton
+            isActive={selectedTopic === 'jsx'}
+            onClick={() => selectHandler('jsx')}
+          >
+            JSX
+          </TabButton>
+          <TabButton
+            isActive={selectedTopic === 'props'}
+            onClick={() => selectHandler('props')}
+          >
+            Props
+          </TabButton>
+          <TabButton
+            isActive={selectedTopic === 'state'}
+            onClick={() => selectHandler('state')}
+          >
+            State
+          </TabButton>
+        </>
+      }>{tabContent}</Tabs>
     </Section>
   )
 }

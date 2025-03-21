@@ -1,5 +1,3 @@
-import './Examples.css'
-
 export default function TabButton({children, isActive, ...props}) {
   return (
     <li>
