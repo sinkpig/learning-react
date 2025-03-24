@@ -1,9 +1,15 @@
+import PlayerInfo from "./components/PlayerInfo/PlayerInfo";
 
 function App() {
-  
-
   return (
-    <h1>React Tic-Tac-Toe</h1>
+    <main>
+      <div id="game-container">
+        <ol id="players">
+          <PlayerInfo initialName="Player 1" symbol="X" />
+          <PlayerInfo initialName="Player 2" symbol="O" />
+        </ol>
+      </div>
+    </main>
   )
 }
 
