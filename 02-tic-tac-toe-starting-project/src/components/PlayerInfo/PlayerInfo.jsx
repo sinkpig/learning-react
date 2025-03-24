@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function PlayerInfo({ initialName, symbol }) {
+export default function PlayerInfo({ initialName, symbol, isActive }) {
   const [ playerName, setPlayerName ] = useState(initialName)
   const [ isEditing, setEdit ] = useState(false)
   let elPlayerName = <span className="player-name">{playerName}</span>
@@ -20,7 +20,7 @@ export default function PlayerInfo({ initialName, symbol }) {
   }
 
   return (
-    <li>
+    <li className={isActive && 'active'}>
       <span className="player">
         {elPlayerName}
         <span className="player-symbol">{symbol}</span>
