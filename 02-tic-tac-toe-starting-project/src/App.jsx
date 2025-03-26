@@ -1,18 +1,24 @@
 import { useState } from 'react'
 import PlayerInfo from "./components/PlayerInfo/PlayerInfo";
 import GameBoard from "./components/GameBoard/GameBoard"
+import Log from "./components/Log/Log"
+
+const firstSymbol = '🌝'
+const secondSymbol = '🌚'
+
+function deriveActivePlayer(gameTurns) {
+  let currentSymbol = firstSymbol
+  if (gameTurns.length > 0 && gameTurns[0].symbol === firstSymbol) currentSymbol = secondSymbol
+  return currentSymbol
+}
 
 function App() {
-  const firstSymbol = '🌝'
-  const secondSymbol = '🌚'
   const [gameTurns, setGameTurns] = useState([])
-  const [activePlayer, setActivePlayer] = useState(firstSymbol)
+  const activePlayer = deriveActivePlayer(gameTurns)
 
   function handleSetTile(rowIndex, columnIndex) {
-    setActivePlayer((activeSymbol) => activeSymbol === firstSymbol ? secondSymbol : firstSymbol)
     setGameTurns(prevTurns => {
-      let currentSymbol = firstSymbol
-      if (prevTurns.length > 0 && prevTurns[0].symbol === firstSymbol) currentSymbol = secondSymbol
+      const currentSymbol = deriveActivePlayer(prevTurns)
 
       const updatedTurns = [
         { tile: { row: rowIndex, column: columnIndex }, symbol: currentSymbol },
@@ -43,6 +49,7 @@ function App() {
           turns={gameTurns}
         />
       </div>
+      <Log turns={gameTurns}/>
     </main>
   )
 }

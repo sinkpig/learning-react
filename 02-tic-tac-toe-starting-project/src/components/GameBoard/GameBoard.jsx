@@ -21,7 +21,9 @@ export default function GameBoard({ onSetTile, turns }) {
           <ol>
             {row.map((symbol, columnIndex) => (
               <li key={columnIndex}>
-                <button onClick={() => onSetTile(rowIndex, columnIndex)}>{symbol}</button>
+                <button onClick={() => onSetTile(rowIndex, columnIndex)} disabled={symbol !== null}>
+                  {symbol}
+                </button>
               </li>
             ))}
           </ol>
