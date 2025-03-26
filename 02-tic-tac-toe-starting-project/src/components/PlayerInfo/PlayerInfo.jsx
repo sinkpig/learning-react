@@ -20,7 +20,7 @@ export default function PlayerInfo({ initialName, symbol, isActive }) {
   }
 
   return (
-    <li className={isActive && 'active'}>
+    <li className={isActive ? 'active' : undefined}>
       <span className="player">
         {elPlayerName}
         <span className="player-symbol">{symbol}</span>
