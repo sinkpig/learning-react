@@ -4,6 +4,7 @@ import { WINNING_COMBINATIONS } from "./data/winning_combinations";
 import PlayerInfo from "./components/PlayerInfo/PlayerInfo";
 import GameBoard from "./components/GameBoard/GameBoard"
 import Log from "./components/Log/Log"
+import GameOver from "./components/GameOver/GameOver"
 
 const firstSymbol = '🌝'
 const secondSymbol = '🌚'
@@ -22,8 +23,9 @@ function deriveActivePlayer(gameTurns) {
 function App() {
   const [gameTurns, setGameTurns] = useState([])
   const activePlayer = deriveActivePlayer(gameTurns)
-  let gameBoard = initialGameBoard
+  let gameBoard = [...initialGameBoard.map(array => [...array])]
   let winner
+  const isDraw = gameTurns.length === 9 && !winner
 
   for (const turn of gameTurns) {
     const  { tile, symbol } = turn
@@ -55,6 +57,10 @@ function App() {
     })
   }
 
+  function handleResetBoard() {
+    setGameTurns([])
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -70,12 +76,11 @@ function App() {
             isActive={activePlayer === secondSymbol}
           />
         </ol>
-        {winner ? <p>Congratulations, {winner} won!</p> : (
-          <GameBoard
+        {(winner || isDraw) && <GameOver winner={winner} onResetBoard={handleResetBoard}/>}
+        <GameBoard
           onSetTile={handleSetTile}
           board={gameBoard}
         />
-        )}
       </div>
       <Log turns={gameTurns}/>
     </main>
