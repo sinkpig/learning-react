@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function PlayerInfo({ initialName, symbol, isActive }) {
+export default function PlayerInfo({ initialName, symbol, isActive, onChangePlayerName }) {
   const [ playerName, setPlayerName ] = useState(initialName)
   const [ isEditing, setEdit ] = useState(false)
   let elPlayerName = <span className="player-name">{playerName}</span>
@@ -8,6 +8,8 @@ export default function PlayerInfo({ initialName, symbol, isActive }) {
 
   function toggleEditing() {
     setEdit(editing => !editing)
+
+    if (isEditing) onChangePlayerName(symbol, playerName)
   }
 
   function handleChange(e) {
