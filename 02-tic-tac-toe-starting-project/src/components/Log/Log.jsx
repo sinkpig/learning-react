@@ -4,7 +4,7 @@ export default function Log({ turns }) {
   if (turns.length > 0) {
     content = turns.map((turn) => (
       <li key={`${turn.tile.row}${turn.tile.column}`}>
-        {turn.symbol} placed on row {turn.tile.row} column {turn.tile.column}
+        <b>{turn.name}</b> placed <b>{turn.symbol}</b> on row {turn.tile.row} column {turn.tile.column}
       </li>
     ));
   }

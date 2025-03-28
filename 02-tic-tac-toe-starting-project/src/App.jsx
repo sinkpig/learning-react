@@ -1,27 +1,31 @@
 import { useState } from 'react'
-import { WINNING_COMBINATIONS } from "./data/winning_combinations";
+import { WINNING_COMBINATIONS } from "./data/winning_combinations"
 
 import PlayerInfo from "./components/PlayerInfo/PlayerInfo";
 import GameBoard from "./components/GameBoard/GameBoard"
 import Log from "./components/Log/Log"
 import GameOver from "./components/GameOver/GameOver"
 
-const FIRST_SYMBOL = '🌝'
-const SECOND_SYMBOL = '🌚'
+const FIRST_SYMBOL = 'X'
+const SECOND_SYMBOL = 'O'
 const INITIAL_GAME_BOARD = [
   [null, null, null],
   [null, null, null],
   [null, null, null]
 ]
-const PLAYERS = {
-  [FIRST_SYMBOL]: 'Player 1',
-  [SECOND_SYMBOL]: 'Player 2'
-}
+const PLAYERS = [
+  { name: 'Player 1', symbol: FIRST_SYMBOL },
+  { name: 'Player 2', symbol: SECOND_SYMBOL }
+]
 
 function deriveActivePlayer(gameTurns) {
   let currentSymbol = FIRST_SYMBOL
   if (gameTurns.length > 0 && gameTurns[0].symbol === FIRST_SYMBOL) currentSymbol = SECOND_SYMBOL
   return currentSymbol
+}
+
+function derivePlayerName(players, symbol) {
+  return players.find((player) => player.symbol === symbol)?.name
 }
 
 function deriveWinner(gameBoard, players) {
@@ -33,7 +37,7 @@ function deriveWinner(gameBoard, players) {
     const thirdTileSymbol = gameBoard[combination[2].row][combination[2].column]
 
     if (firstTileSymbol && firstTileSymbol === secondTileSymbol && firstTileSymbol === thirdTileSymbol) {
-      winner = players[firstTileSymbol]
+      winner = derivePlayerName(players, firstTileSymbol)
     }
   }
 
@@ -63,11 +67,13 @@ function App() {
 
   function handleChangePlayerName(symbol, updatedName) {
     setPlayers(prevPlayers => {
-      return {
-        ...prevPlayers,
-        [symbol]: updatedName
-      }
-    })
+      return prevPlayers.map(player =>
+        player.symbol === symbol
+          ? { ...player,
+            name: updatedName }
+          : player
+      );
+    });
   }
 
   function handleSetTile(rowIndex, columnIndex) {
@@ -75,7 +81,11 @@ function App() {
       const currentSymbol = deriveActivePlayer(prevTurns)
 
       const updatedTurns = [
-        { tile: { row: rowIndex, column: columnIndex }, symbol: currentSymbol },
+        {
+          tile: { row: rowIndex, column: columnIndex },
+          symbol: currentSymbol,
+          name: derivePlayerName(players, currentSymbol)
+        },
         ...prevTurns
       ]
 
@@ -92,15 +102,15 @@ function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <PlayerInfo
-            initialName={PLAYERS[FIRST_SYMBOL]}
-            symbol={FIRST_SYMBOL}
-            isActive={activePlayer === FIRST_SYMBOL}
+            initialName={PLAYERS[0].name}
+            symbol={PLAYERS[0].symbol}
+            isActive={activePlayer === PLAYERS[0].symbol}
             onChangePlayerName={handleChangePlayerName}
           />
           <PlayerInfo
-            initialName={PLAYERS[SECOND_SYMBOL]}
-            symbol={SECOND_SYMBOL}
-            isActive={activePlayer === SECOND_SYMBOL}
+            initialName={PLAYERS[1].name}
+            symbol={PLAYERS[1].symbol}
+            isActive={activePlayer === PLAYERS[1].symbol}
             onChangePlayerName={handleChangePlayerName}
           />
         </ol>
