@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { calculateInvestmentResults } from './util/investment'
 import Header from './components/Header/Header'
 import UserInput from './components/UserInput/UserInput'
 import Result from './components/Result/Result'
@@ -16,7 +15,7 @@ function App() {
     setUserInput(prevUserInput => {
       return {
         ...prevUserInput,
-        [inputIdentifier]: updatedValue
+        [inputIdentifier]: Number(updatedValue)
       }
     })
   }
@@ -34,7 +33,7 @@ function App() {
           <UserInput title="duration" userInput={userInput} onChange={handleChange} />
         </div>
       </section>
-      <Result />
+      <Result input={userInput}/>
     </>
   )
 }
