@@ -1,31 +1,5 @@
-import { styled } from 'styled-components'
-
-const Button = styled.button`
-  ${({ type }) =>
-    type === 'button' ?
-    `
-      color: #f0b322;
-      background-color: transparent;
-      border: none;
-
-      &:hover {
-        color: #f0920e;
-      }
-    ` :
-    `
-      padding: 1rem 2rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: #1f2937;
-      background-color: #f0b322;
-      border-radius: 6px;
-      border: none;
-
-      &:hover {
-        background-color: #f0920e;
-      }
-    `
-  }
-`
-
-export default Button
+export default function Button({children, ...props}) {
+  return (
+    <button className="py-4 px-8 font-semibold uppercase bg-amber-400 text-stone-900 rounded-md border-none hover:bg-amber-500" {...props}>{children}</button>
+  )
+}
